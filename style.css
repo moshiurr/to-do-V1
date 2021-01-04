@@ -8,6 +8,8 @@
 
 body {
     background-image: linear-gradient(120deg, #d6b34b,#dd8e78);
+    /* background-image: linear-gradient(120deg, #000000,#aaa5a4);; */
+
     color: white;
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
@@ -24,7 +26,7 @@ nav {
         -ms-flex-align: center;
             align-items: center;
     min-height: 8vh;
-    background-image: linear-gradient(120deg, #d6b34b,#dd8e78);;
+    /* background-image: linear-gradient(120deg, #d6b34b,#dd8e78);; */
   }
   
   .logo {
@@ -79,12 +81,14 @@ nav {
     }
     .nav-links {
       position: absolute;
+      z-index: 1;
       right: 0px;
       height: 95vh;
-      top: 5vh;
+      top: 0vh;
       width: 50%;
       padding-right: 15px;
       background-image: linear-gradient(120deg, #d6b34b,#dd8e78);;
+      /* background-image: linear-gradient(120deg, #000000,#aaa5a4);; */
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -106,6 +110,7 @@ nav {
       opacity: 0;
     }
     .burger {
+      z-index: 2;
       display: block;
       cursor: pointer;
     }
@@ -148,6 +153,7 @@ nav {
   }
   
   .toggle-burger .line-2 {
+    transform: translateX(-25px); 
     opacity: 0;
   }
   
@@ -196,6 +202,7 @@ form button:hover {
 .todo-list {
     min-width: 30%;
     list-style: none;
+    transition: all 0.4s ease;
 }
 
 .todo {
@@ -227,6 +234,12 @@ form button:hover {
     padding: 1rem;
     cursor: pointer;
     font-size: 1rem;
+
+    transition: opacity 0.3s ease;
+}
+
+.check-btn:hover, .delete-btn:hover {
+    opacity: 0.7;
 }
 
 .check-btn {
@@ -243,4 +256,52 @@ form button:hover {
     opacity: 0;
 }
 
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+}
 
+.select {
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+select {
+    color:#dd8e78 ;
+    width: 10rem;
+    cursor: pointer;
+    padding: 1rem;
+    font-size: 0.9rem;
+
+}
+
+.select::after {
+    content: "\25BC";
+    position: absolute;
+    background: #dd8e78;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.select:hover::after {
+    background: white;
+    color: #dd8e78;
+}
+
+@media screen and (max-width: 768px) {
+    form {
+        /* justify-content: space-around; */
+        padding-left: 1rem;
+    }
+
+    form input {
+        width: 80%;
+    }
+}
