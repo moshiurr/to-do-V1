@@ -81,9 +81,9 @@ nav {
     }
     .nav-links {
       position: absolute;
-      z-index: 1;
+      
       right: 0px;
-      height: 95vh;
+      height: 100vh;
       top: 0vh;
       width: 50%;
       padding-right: 15px;
@@ -117,6 +117,7 @@ nav {
   }
   
   .nav-active {
+    
     -webkit-transform: translateX(0%);
             transform: translateX(0%);
   }
@@ -203,6 +204,8 @@ form button:hover {
     min-width: 30%;
     list-style: none;
     transition: all 0.4s ease;
+    /* for pushing it behind the floating nav-links */
+    z-index: -1;
 }
 
 .todo {
@@ -268,6 +271,7 @@ select {
     margin: 1rem;
     position: relative;
     overflow: hidden;
+    z-index: -1;
 }
 
 select {
@@ -276,7 +280,6 @@ select {
     cursor: pointer;
     padding: 1rem;
     font-size: 0.9rem;
-
 }
 
 .select::after {
