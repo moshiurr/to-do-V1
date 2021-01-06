@@ -75,6 +75,8 @@ function checkDelete(event){
     if(pressesItem.classList[0] === 'check-btn'){
         let dItem = pressesItem.parentElement;
         dItem.classList.toggle('completed');
+
+        updateCompletedTodo(dItem.childNodes[0].innerText);
     }
 }
 
@@ -118,6 +120,34 @@ function scanLocalForTodo(){
     return todos;
 }
 
+/**
+ * 
+ */
+
+function scanLocalForCompleted(){
+    let comp;
+
+    if(localStorage.getItem("comp") === null){
+        comp = [];
+    }else{
+        comp = JSON.parse(localStorage.getItem("comp"));
+    }
+    return comp;
+}
+
+function updateCompletedTodo(todo){
+    let todos = scanLocalForTodo();
+    let comp = scanLocalForCompleted();
+
+    let index = todos.indexOf(todo);
+    if(comp[index] == "0"){
+        comp[index] = "1";
+    }else {
+        comp[index] = "0";
+    }
+    
+    localStorage.setItem("comp",JSON.stringify(comp));
+}
 
 function saveTodosToLocal(todo){
 
@@ -127,17 +157,26 @@ function saveTodosToLocal(todo){
     todos.push(todo);
     //saving to local storage
     localStorage.setItem("todos", JSON.stringify(todos));
+
+    //for complete check mark. since this todo created just now, so, this hasn't been completed
+    let comp = scanLocalForCompleted();
+    comp.push("0");
+    localStorage.setItem("comp", JSON.stringify(comp));
+    
 }
 
 function retrieveFromLocal(){
 
     let todos = scanLocalForTodo();
-
+    let comp = scanLocalForCompleted();
+    var i = 0;
     todos.forEach(function(todo){
 
         //create a div
         const todoDiv = document.createElement('div');
         todoDiv.classList.add("todo");
+
+        if(comp[i] == "1") todoDiv.classList.add("completed");
 
         //create a li
         const todoLi = document.createElement('li');
@@ -161,12 +200,14 @@ function retrieveFromLocal(){
 
         //adding the new div to the main todoList
         todoList.appendChild(todoDiv);
+        i++;
     })
 }
 
 function deleteFromLocal(todo){
 
     let todos = scanLocalForTodo();
+    let comp = scanLocalForCompleted();
     
     //getting the inner text value from the parameter
     //cause we only store that value in the local storage
@@ -177,11 +218,15 @@ function deleteFromLocal(todo){
     
     //removing the value
     todos.splice(index, 1);
+    comp.splice(index,1);
 
     //updating the local storage
     localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("comp",JSON.stringify(comp));
 }
-//for navbar
+
+
+//for navbar ---------------------------------------------------------------------------------------------
 const navSlide = () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
@@ -205,3 +250,14 @@ const navSlide = () => {
 }
 
 navSlide();
+
+/**
+ * page animation
+ */
+const page = document.querySelector('.main');
+const nav = document.querySelector('nav');
+const tl = new TimelineMax();
+
+tl.fromTo(page, 1, {x: "-100%"}, {x: "0%", ease: Power2.easeInOut})
+.fromTo(nav, 0.3, {y:"-300%"}, {y:"0%", ease: Power2.easeInOut});
+
