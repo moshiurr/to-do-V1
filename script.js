@@ -251,4 +251,13 @@ const navSlide = () => {
 
 navSlide();
 
+/**
+ * page animation
+ */
+const page = document.querySelector('.main');
+const nav = document.querySelector('nav');
+const tl = new TimelineMax();
+
+tl.fromTo(page, 1, {x: "-100%"}, {x: "0%", ease: Power2.easeInOut})
+.fromTo(nav, 0.3, {y:"-300%"}, {y:"0%", ease: Power2.easeInOut});
 
