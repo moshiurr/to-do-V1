@@ -200,12 +200,15 @@ form button:hover {
     align-items: center;
 }
 
+/* for pushing it behind the floating nav-links */
+.push-it-down {
+  z-index: -1;
+}
+
 .todo-list {
     min-width: 30%;
     list-style: none;
     transition: all 0.4s ease;
-    /* for pushing it behind the floating nav-links */
-    z-index: -1;
 }
 
 .todo {
@@ -271,7 +274,6 @@ select {
     margin: 1rem;
     position: relative;
     overflow: hidden;
-    z-index: -1;
 }
 
 select {
